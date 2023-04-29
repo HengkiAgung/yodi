@@ -1,9 +1,7 @@
-import 'dart:js';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:yodi/bloc/product/product_bloc.dart';
-import 'package:yodi/screen/main_screen.dart';
+import 'bloc/product/product_bloc.dart';
+import 'screen/main_screen.dart';
 
 import 'repository/product_repository.dart';
 
@@ -37,13 +35,13 @@ void main() {
         create: (context) => ProductBloc(productRepository: productRepository),
       ),
     ],
-    child: const MainApp(),
+    child: const MyApp(),
   );
-  runApp(const MainApp());
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
