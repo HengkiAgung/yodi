@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../pages/login_page.dart';
-import '../utils/constans.dart';
-
-class DrawerComponent extends StatelessWidget {
-  const DrawerComponent({super.key});
+class DrawerWidget extends StatelessWidget {
+  const DrawerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +28,22 @@ class DrawerComponent extends StatelessWidget {
               // ignore: avoid_print
               onTap: () {},
             ),
-            ListTile(
-              title: const Text("Log Out"),
-              trailing: const Icon(Icons.exit_to_app),
-              // ignore: avoid_print
-              onTap: () {
-                Constants.prefs.setBool("loggedIn", false);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginPage(),
-                  ),
-                );
-              },
-            ),
+
+            // logout button
+            // ListTile(
+            //   title: const Text("Log Out"),
+            //   trailing: const Icon(Icons.exit_to_app),
+            //   // ignore: avoid_print
+            //   onTap: () {
+            //     Constants.prefs.setBool("loggedIn", false);
+            //     Navigator.pushReplacement(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => LoginPage(),
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         ),
       );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widget/drawer_widget.dart';
 import 'cart_screen.dart';
 import 'home_screen.dart';
 
@@ -33,7 +34,11 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Null"),
+      ),
       body: _listWidget[_bottomNavIndex],
+      drawer: const DrawerWidget(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _bottomNavIndex,
