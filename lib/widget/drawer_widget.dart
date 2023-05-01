@@ -12,8 +12,8 @@ class DrawerWidget extends StatelessWidget {
           padding: const EdgeInsets.all(0),
           children: <Widget>[
             const UserAccountsDrawerHeader(
-              accountName: Text("hengki"),
-              accountEmail: Text("hengki@mail.com"),
+              accountName: Text("hengki", style: TextStyle(color: Color.fromARGB(255, 61, 61, 61)),),
+              accountEmail: Text("hengki@mail.com", style: TextStyle(color: Color.fromARGB(255, 61, 61, 61)),),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage(
                   'images/logo.jpg',

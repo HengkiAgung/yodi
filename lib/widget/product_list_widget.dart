@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletons/skeletons.dart';
 
 import '../bloc/product/product_bloc.dart';
-import '../screen/detail_product_screen.dart';
+import '../screen/product_detail_screen.dart';
 
 class ProductListWidget extends StatelessWidget {
   const ProductListWidget({super.key});

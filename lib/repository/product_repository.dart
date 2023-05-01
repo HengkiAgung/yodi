@@ -11,11 +11,11 @@ class ProductRepository {
   Future getProducts() async {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/item?page=1&itemCount=12'));
-
       if (response.statusCode == 200) {
         Iterable it = jsonDecode(response.body)["data"]['items'];
-        print(it);
-        List<Product> product = it.map((e) => Product.fromJson(e)).toList();
+        List<Product> product = it.map((e) {
+            return Product.fromJson(e);
+          }).toList();
 
         return product;
       }
@@ -29,12 +29,12 @@ class ProductRepository {
       final response = await http.get(Uri.parse('$_baseUrl/item/$idProduct'));
 
       if (response.statusCode == 200) {
-        Iterable it = jsonDecode(response.body)["data"]['item'];
-        print(it);
-        List<Product> product = it.map((e) => Product.fromJson(e)).toList();
+        // print(jsonDecode(response.body)["data"]['item']);
+        List<Product> product = [Product.fromJson(jsonDecode(response.body)["data"]['item'])];
 
         return product;
       }
+
     } catch (e) {
       print(e.toString());
     }

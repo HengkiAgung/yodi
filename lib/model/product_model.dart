@@ -5,7 +5,7 @@ class Product {
   late String title;
   late Seller seller;
   late int price;
-  late String deskripsi;
+  late String description;
   late String image;
   late int stock;
 
@@ -14,7 +14,7 @@ class Product {
     required this.title,
     required this.seller,
     required this.price,
-    required this.deskripsi,
+    required this.description,
     required this.image,
     required this.stock,
   });
@@ -24,7 +24,7 @@ class Product {
     title = json['title'];
     seller = Seller.fromJson(json['seller']);
     price = json['price'];
-    deskripsi = json['description'];
+    description = json['description'];
     image = json['image'];
     stock = json['stock'];
   }
@@ -35,7 +35,7 @@ class Product {
     data['title'] = title;
     data['seller'] = seller;
     data['price'] = price;
-    data['deskripsi'] = deskripsi;
+    data['description'] = description;
     data['image'] = image;
     data['stock'] = stock;
     return data;
