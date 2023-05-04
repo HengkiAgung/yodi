@@ -6,19 +6,21 @@ import 'package:http/http.dart' as http;
 import '../model/product_model.dart';
 
 class ProductRepository {
-  static final String _baseUrl = Platform.isAndroid ? 'http://192.168.1.2:3000/api' : 'http://localhost:3000/api';
+  static final String _baseUrl =  Platform.isAndroid  ? 'http://192.168.1.3:3000/api' : 'http://localhost:3000/api';
 
   Future getProducts() async {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/item?page=1&itemCount=12'));
-      if (response.statusCode == 200) {
-        Iterable it = jsonDecode(response.body)["data"]['items'];
-        List<Product> product = it.map((e) {
-            return Product.fromJson(e);
-          }).toList();
+      // print("!");
+      // print(jsonDecode(response.body)["data"]['items']);
+      // print("!");
+      Iterable it = jsonDecode(response.body)["data"]['items'];
+      List<Product> product = it.map((e) {
+        return Product.fromJson(e);
+      }).toList();
 
-        return product;
-      }
+      return product;
+  
     } catch (e) {
       print(e.toString());
     }

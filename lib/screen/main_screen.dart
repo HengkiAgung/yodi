@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<BottomNavigationBarItem> _bottomNavBarItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     const BottomNavigationBarItem(
-        icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
+        icon: Icon(Icons.shopping_cart), label: 'Cart'),
   ];
 
   void _onBottomNavBarTapped(int index) {

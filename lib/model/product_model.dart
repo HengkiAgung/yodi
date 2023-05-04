@@ -1,32 +1,44 @@
+import "item_variant_model.dart";
 import "seller_model.dart";
 
 class Product {
   late String id;
   late String title;
-  late Seller seller;
-  late int price;
   late String description;
-  late String image;
-  late int stock;
+  late int sold;
+  late Map? count;
+  late Seller seller;
+  late List<ItemVariant> itemVariant;
+  late List<String> itemImage;
 
   Product({
     required this.id,
     required this.title,
     required this.seller,
-    required this.price,
     required this.description,
-    required this.image,
-    required this.stock,
+    required this.sold,
+    required this.count,
+    required this.itemImage,
+    required this.itemVariant,
   });
 
   Product.fromJson(Map<String, dynamic> json) {
+    itemImage = [];
+    itemVariant = [];
     id = json['id'];
     title = json['title'];
-    seller = Seller.fromJson(json['seller']);
-    price = json['price'];
     description = json['description'];
-    image = json['image'];
-    stock = json['stock'];
+    sold = json['sold'];
+    count = json['_count'];
+    seller = Seller.fromJson(json['seller']);
+
+    for (var imageObject in json['itemImage']) {
+      this.itemImage.add(imageObject["image"]);
+    }
+
+    for (var variantObject in json['itemVariant']) {
+      this.itemVariant.add(ItemVariant.fromJson(variantObject));
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -34,10 +46,11 @@ class Product {
     data['id'] = id;
     data['title'] = title;
     data['seller'] = seller;
-    data['price'] = price;
     data['description'] = description;
-    data['image'] = image;
-    data['stock'] = stock;
+    data['itemImage'] = itemImage;
+    data['sold'] = sold;
+    data['itemVariant'] = itemVariant;
+    data['count'] = count;
     return data;
   }
 }

@@ -6,8 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/product/product_bloc.dart';
 
 class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
-  final Widget backScreen;
-  const AppBarComponent({required this.backScreen, super.key});
+  const AppBarComponent({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(57);

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skeletons/skeletons.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-import '../bloc/product/product_bloc.dart';
-import '../screen/product_detail_screen.dart';
+import '../../bloc/product/product_bloc.dart';
+import '../../components/skeleton_product_list_component.dart';
+import '../../screen/product_detail_screen.dart';
 
 class ProductListWidget extends StatelessWidget {
   const ProductListWidget({super.key});
@@ -15,7 +16,7 @@ class ProductListWidget extends StatelessWidget {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
         if (state is ProductLoading) {
-          return const Text('load (FISH LIST)');
+          return const SkeletonProductListComponent();
         } else if (state is ProductLoadSuccess) {
           final products = state.product;
 
@@ -47,7 +48,7 @@ class ProductListWidget extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      height: 1000,
+                      // height: 100,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 255, 255, 255),
                         borderRadius: BorderRadius.circular(8),
@@ -62,43 +63,68 @@ class ProductListWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // Center(
+                          //   child: Image.network(
+                          //     product.image,
+                          //     frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                          //       return child;
+                          //     },
+                          //     loadingBuilder: (context, child, loadingProgress) {
+                          //       if (loadingProgress != null) {
+                          //         return Center(
+                          //           child: Image.asset("images/loading.gif"),
+                          //         );
+                          //       } else {
+                          //         return child;
+                          //       };
+                          //     },
+                          //   ),
+                          // ),
+
                           // thumbnail of product card
                           ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(8),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              topRight: Radius.circular(8),
                             ),
-                            child: Image.network(
-                              product.image,
-                              fit: BoxFit.cover,
+                            child: Container(
+                              height: 190,
+                              width: double.infinity,
+                              child: FadeInImage(
+                                placeholder:
+                                    const AssetImage("images/loading.gif"),
+                                image: NetworkImage(product.itemImage[0]),
+                              ),
                             ),
                           ),
 
                           // content of product card
                           Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Wrap(
-                                direction: Axis.vertical,
-                                spacing: 5, // <-- Spacing between children
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      product.title,
-                                      style: const TextStyle(fontSize: 14),
+                            padding: const EdgeInsets.all(10),
+                            child: Wrap(
+                              direction: Axis.vertical,
+                              spacing: 5, // <-- Spacing between children
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    product.title,
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Rp. ${product.itemVariant[0].price}',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'Rp. ${product.price}',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
