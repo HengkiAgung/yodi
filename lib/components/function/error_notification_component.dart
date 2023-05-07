@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../model/product_model.dart';
-import '../chip_of_variant_component.dart';
-
-class VariantProductComponent {
-  void showModal(context, Product product) {
-
+class ErrorNotificationComponent {
+  void showModal(context, String errorMessage) {
     showModalBottomSheet<void>(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -15,6 +11,7 @@ class VariantProductComponent {
         ),
       ),
       builder: (BuildContext context) {
+        List<int> variantSelected = [];
 
         return Container(
           decoration: const BoxDecoration(
@@ -28,12 +25,12 @@ class VariantProductComponent {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(),
+                  padding: const EdgeInsets.only(right: 14, left: 14),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 14, left: 14, top: 20, bottom: 20),
+                        padding: const EdgeInsets.only(top: 20, bottom: 20),
                         child: Row(
                           children: [
                             GestureDetector(
@@ -47,7 +44,7 @@ class VariantProductComponent {
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              'Varian baju',
+                              'Ada yang salah..',
                               style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 color: Colors.black,
@@ -56,30 +53,14 @@ class VariantProductComponent {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 14, left: 14),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              product.title,
-                              style: GoogleFonts.poppins(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Text(
-                              "Rp. ${product.itemVariant[0].price},00",
-                              style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
+                      
+                      Text(
+                        errorMessage,
+                        style: GoogleFonts.poppins(
+                          fontSize: 20,
+                          color: Colors.black,
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      ChipOfVariantComponent(itemVariant: product.itemVariant),
                     ],
                   ),
                 ),

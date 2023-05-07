@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../widget/seller/top_seller_list_widget.dart';
 import '../bloc/product/product_bloc.dart';
+import '../bloc/user/user_bloc.dart';
 import '../widget/product/product_list_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<ProductBloc>().add(GetProductList());
+    context.read<UserBloc>().add(GetUserData());
   }
 
   @override
@@ -25,8 +29,26 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: const [
-            ProductListWidget(),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Top Seller",
+              style: GoogleFonts.poppins(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+            const TopSellerListWidget(),
+            Text(
+              "Product Dari Seller",
+              style: GoogleFonts.poppins(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+            const ProductListWidget(),
           ],
         ),
       ),

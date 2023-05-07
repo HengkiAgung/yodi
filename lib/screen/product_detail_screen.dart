@@ -48,7 +48,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
           ),
         ),
       ]),
-      bottomNavigationBar: const BottomBuyNavbarComponent(),
+      bottomNavigationBar: BottomBuyNavbarComponent(),
     );
   }
 }

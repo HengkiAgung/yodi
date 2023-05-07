@@ -3,17 +3,23 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import '../config.dart';
+import '../utils/auth.dart';
 import '../model/user_model.dart';
 
 class UserRepository {
-  static final String _baseUrl =  Platform.isAndroid  ? 'http://192.168.1.3:3000/api' : 'http://localhost:3000/api';
+  static final String _baseUrl =  Platform.isAndroid  ? Config.apiUrl : 'http://localhost:3000/api';
 
-  Future getUserData(String idUser) async {
+  Future getUserData() async {
     try {
-      final response = await http.get(Uri.parse('$_baseUrl/item/$idUser'));
+      String? token = await Auth().getToken();
+
+      final response = await http.get(Uri.parse('$_baseUrl/user/me'), headers: {
+        'Authorization': 'Bearer ${token}',
+      });
 
       if (response.statusCode == 200) {
-        // print(jsonDecode(response.body)["data"]['item']);
+        
         List<User> user = [User.fromJson(jsonDecode(response.body)["data"])];
 
         return user;

@@ -22,8 +22,8 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
       onWillPop: () async {
         context.read<ProductBloc>().add(GetProductList());
 
-        Navigator.pop(context);
-        return false;
+        // Navigator.pop(context);
+        return true;
       },
       child: Column(
         children: [
@@ -111,7 +111,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                           ),
                           const SizedBox(height: 15),
                           Text(
-                            product.description,
+                            product.description ?? "",
                             style: GoogleFonts.poppins(
                               fontSize: 15,
                               color: Colors.grey,

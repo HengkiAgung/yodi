@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:yodi/components/app_bar_component.dart';
 
+import '../model/seller_model.dart';
+import '../widget/cart/cart_widget.dart';
+import '../widget/history/history_transaction_widget.dart';
+import '../widget/seller/seller_list_widget.dart';
 import '../widget/drawer_widget.dart';
-import 'cart_screen.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -16,13 +20,16 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _listWidget = [
     const HomeScreen(),
-    const CartScreen(),
+    const SellerListWidget(),
+    const HistoryTransactionWidget(),
   ];
 
   final List<BottomNavigationBarItem> _bottomNavBarItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     const BottomNavigationBarItem(
-        icon: Icon(Icons.shopping_cart), label: 'Cart'),
+    icon: Icon(Icons.handshake_outlined), label: 'Seller'),
+    const BottomNavigationBarItem(
+    icon: Icon(Icons.notes_rounded), label: 'Transaction'),
   ];
 
   void _onBottomNavBarTapped(int index) {
@@ -34,9 +41,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Null"),
-      ),
+      appBar: const AppBarComponent(),
       body: _listWidget[_bottomNavIndex],
       drawer: const DrawerWidget(),
       bottomNavigationBar: BottomNavigationBar(

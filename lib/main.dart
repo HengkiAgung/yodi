@@ -1,12 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:yodi/repository/user_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import 'bloc/product_variant/product_variant_bloc.dart';
 import 'bloc/product/product_bloc.dart';
 import 'bloc/user/user_bloc.dart';
 import 'screen/auth_screen.dart';
 import 'screen/main_screen.dart';
+import '/repository/user_repository.dart';
 import 'repository/product_repository.dart';
 
 class SimpleBlocObserver extends BlocObserver {
@@ -42,6 +43,9 @@ void main() {
       BlocProvider<UserBloc>(
         create: (context) => UserBloc(userRepository: userRepository),
       ),
+      BlocProvider<ProductVariantBloc>(
+        create: (context) => ProductVariantBloc(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -70,9 +74,15 @@ class MyApp extends StatelessWidget {
           secondary: const Color(0xFFFFC107),
         ),
       ),
-      home: SafeArea(
-        // child: hasToken() == true ? const MainScreen() : const AuthScreen(),
-        child: const MainScreen(),
+      home: FutureBuilder<bool>(
+        future: hasToken(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.hasData && snapshot.data == true) {
+            return const MainScreen();
+          } else {
+            return const AuthScreen();
+          }
+        },
       ),
     );
   }

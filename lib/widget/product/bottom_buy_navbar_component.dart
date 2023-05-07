@@ -3,28 +3,27 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yodi/model/product_variant_model.dart';
 
 import '../../bloc/product/product_bloc.dart';
+import '../../components/function/error_notification_component.dart';
 import '../../model/product_model.dart';
 import '../../components/function/variant_product_component.dart';
+import '../../repository/cart_repository.dart';
 
 class BottomBuyNavbarComponent extends StatefulWidget {
-  const BottomBuyNavbarComponent({super.key});
+  List<String>? variantSelected;
+  BottomBuyNavbarComponent({this.variantSelected, super.key});
 
   @override
   // ignore: no_logic_in_create_state
-  State<BottomBuyNavbarComponent> createState() => _BottomBuyNavbarComponentState();
+  State<BottomBuyNavbarComponent> createState() => _BottomBuyNavbarComponentState(variantSelected: variantSelected);
 }
 
 class _BottomBuyNavbarComponentState extends State<BottomBuyNavbarComponent> {
-  final List<int>? itemVariantId;
+  final List<String>? variantSelected;
 
-  _BottomBuyNavbarComponentState({this.itemVariantId});
-
-  void variantMethod(int idItem, List<int> idVariant, String method) {
-    print(idItem);
-    print(idVariant);
-  }
+  _BottomBuyNavbarComponentState({this.variantSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +50,9 @@ class _BottomBuyNavbarComponentState extends State<BottomBuyNavbarComponent> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () {
-                  if (itemVariantId != null) {
+                onTap: () async {
+                  if (variantSelected?[0] != null) {
+                    await CartRepository().addProductToCart(product.id, variantSelected ?? []) == true ? Navigator.pop(context) : ErrorNotificationComponent().showModal(context, "Pesanan gagal ditambahkan");
                   } else {
                     VariantProductComponent().showModal(context, product);
                   }
