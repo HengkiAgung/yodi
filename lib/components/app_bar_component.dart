@@ -22,11 +22,11 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromARGB(0, 255, 252, 81),
+      backgroundColor: const Color.fromARGB(0, 255, 252, 81),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(4.0),
         child: Container(
-          color: Color.fromARGB(123, 226, 226, 226),
+          color: const Color.fromARGB(123, 226, 226, 226),
           height: 1,
         ),
       ),
@@ -49,17 +49,17 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
             ? const SizedBox(width: 10)
             : Container(
                 width: 200,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Container(
-                  padding: EdgeInsets.only(left: 5, right: 5),
+                  padding: const EdgeInsets.only(left: 5, right: 5),
                   decoration: BoxDecoration(
                     border:
-                        Border.all(color: Color.fromARGB(255, 216, 216, 216)),
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                        Border.all(color: const Color.fromARGB(255, 216, 216, 216)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                   ),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.search,
                         color: Color.fromARGB(255, 97, 97, 97),
                         size: 18,
@@ -71,14 +71,14 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
                         "Search on YoDi",
                         style: GoogleFonts.poppins(
                           fontSize: 15,
-                          color: Color.fromARGB(255, 97, 97, 97),
+                          color: const Color.fromARGB(255, 97, 97, 97),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-        Spacer(),
+        const Spacer(),
         IconButton(
           onPressed: () {
             Navigator.of(context).push(

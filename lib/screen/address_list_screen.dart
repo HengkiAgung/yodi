@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yodi/widget/account/address_add_widget.dart';
 
 import '../widget/account/address_list_widget.dart';
 
@@ -13,6 +14,9 @@ class AddressListScreen extends StatefulWidget {
 }
 
 class _AddressListScreenState extends State<AddressListScreen> {
+  Widget chipOfWidget = const AddressListWidget();
+  bool add = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +31,12 @@ class _AddressListScreenState extends State<AddressListScreen> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            if (add) {
+              add = false;
+              setState(() => chipOfWidget = const AddressListWidget());
+            } else {
+              Navigator.pop(context);
+            }
           },
           icon: const Icon(
             Icons.arrow_back,
@@ -50,17 +59,27 @@ class _AddressListScreenState extends State<AddressListScreen> {
             ),
           ),
           Spacer(),
-          Text(
-            "Tambah Alamat",
-            style: GoogleFonts.poppins(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+          GestureDetector(
+            onTap: () {
+              add = true;
+              setState(() => chipOfWidget = const AddressAddWidget());
+            },
+            child: add ? Spacer() :Padding(
+              padding: const EdgeInsets.only(right: 13),
+              child: Center(
+                child: Text(
+                  "Tambah Alamat",
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: Colors.amber,
+                  ),
+                ),
+              ),
             ),
           ),
         ],
       ),
-      body: const AddressListWidget(),
+      body: chipOfWidget,
     );
   }
 }

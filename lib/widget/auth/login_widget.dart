@@ -47,8 +47,6 @@ class LoginWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: TextButton(
               onPressed: () {
-                print(_emailController.text);
-                print(_passwordController.text);
                 Auth().login(context, _emailController.text, _passwordController.text);
               },
               style: TextButton.styleFrom(

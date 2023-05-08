@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'bloc/product_variant/product_variant_bloc.dart';
 import 'bloc/product/product_bloc.dart';
 import 'bloc/user/user_bloc.dart';
+import 'bloc/user_address/user_address_bloc.dart';
 import 'screen/auth_screen.dart';
 import 'screen/main_screen.dart';
 import '/repository/user_repository.dart';
@@ -43,9 +44,13 @@ void main() {
       BlocProvider<UserBloc>(
         create: (context) => UserBloc(userRepository: userRepository),
       ),
+      BlocProvider<UserAddressBloc>(
+        create: (context) => UserAddressBloc(userRepository: userRepository),
+      ),
       BlocProvider<ProductVariantBloc>(
         create: (context) => ProductVariantBloc(),
       ),
+      
     ],
     child: const MyApp(),
   ));

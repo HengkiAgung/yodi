@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:yodi/screen/address_list_screen.dart';
 
 import '../../bloc/user/user_bloc.dart';
+import '../../bloc/user_address/user_address_bloc.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
@@ -130,6 +131,7 @@ class ProfileWidget extends StatelessWidget {
               // daftar alamat
               GestureDetector(
                 onTap: (){
+                  context.read<UserAddressBloc>().add(GetAllAddressData());
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) =>

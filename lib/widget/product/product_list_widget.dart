@@ -63,24 +63,6 @@ class ProductListWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Center(
-                          //   child: Image.network(
-                          //     product.image,
-                          //     frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                          //       return child;
-                          //     },
-                          //     loadingBuilder: (context, child, loadingProgress) {
-                          //       if (loadingProgress != null) {
-                          //         return Center(
-                          //           child: Image.asset("images/loading.gif"),
-                          //         );
-                          //       } else {
-                          //         return child;
-                          //       };
-                          //     },
-                          //   ),
-                          // ),
-
                           // thumbnail of product card
                           ClipRRect(
                             borderRadius: const BorderRadius.only(
