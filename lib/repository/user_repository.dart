@@ -15,12 +15,10 @@ import '../model/address_model.dart';
 class UserRepository {
   static final String _baseUrl =  Platform.isAndroid  ? Config.apiUrl : 'http://localhost:3000/api';
 
-  Future getUserData() async {
+  Future getUserData(String token) async {
     try {
-      String? token = await Auth().getToken();
-
       final response = await http.get(Uri.parse('$_baseUrl/user/me'), headers: {
-        'Authorization': 'Bearer ${token}',
+        'Authorization': 'Bearer $token',
       });
 
       if (response.statusCode == 200) {
@@ -35,10 +33,8 @@ class UserRepository {
     }
   }
 
-  Future getAllUserAddress() async {
+  Future getAllUserAddress(String token) async {
     try {
-      String? token = await Auth().getToken();
-
       final response = await http.get(Uri.parse('$_baseUrl/user/me/address'), headers: {
         'Authorization': 'Bearer $token',
       });
@@ -65,7 +61,7 @@ class UserRepository {
       final response = await http.post(
         Uri.parse('http://192.168.1.2:3000/api/user/me/address'),
         headers: {
-          'Authorization': 'Bearer ${token}',
+          'Authorization': 'Bearer $token',
         },
         body: jsonEncode({
           'label': label,

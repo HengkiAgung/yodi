@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yodi/components/app_bar_component.dart';
 
-import '../model/seller_model.dart';
-import '../widget/cart/cart_widget.dart';
 import '../widget/history/history_transaction_widget.dart';
 import '../widget/seller/seller_list_widget.dart';
-import '../widget/drawer_widget.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -43,7 +40,6 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: const AppBarComponent(),
       body: _listWidget[_bottomNavIndex],
-      drawer: const DrawerWidget(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _bottomNavIndex,

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../model/address_model.dart';
 import '../../repository/user_repository.dart';
+import '../../utils/auth.dart';
 
 part 'user_address_event.dart';
 part 'user_address_state.dart';
@@ -14,7 +15,8 @@ class UserAddressBloc extends Bloc<UserAddressEvent, UserAddressState> {
     on<GetAllAddressData>((event, emit) async {
       emit(UserAddressLoading());
       try {
-        final address = await userRepository.getAllUserAddress();
+        String? token = await Auth().getToken();
+        final address = await userRepository.getAllUserAddress(token!);
 
         emit(UserAddressLoadSuccess(address));
       } catch (error) {

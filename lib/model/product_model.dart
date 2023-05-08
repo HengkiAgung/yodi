@@ -36,8 +36,10 @@ class Product {
       this.itemImage.add(imageObject["image"]);
     }
 
-    for (var variantObject in json['itemVariant']) {
-      this.itemVariant.add(ProductVariant.fromJson(variantObject));
+    if (json['itemVariant'] != null) {
+      for (var variantObject in json['itemVariant']) {
+        this.itemVariant.add(ProductVariant.fromJson(variantObject));
+      }
     }
   }
 

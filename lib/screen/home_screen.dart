@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<ProductBloc>().add(GetProductList());
-    context.read<UserBloc>().add(GetUserData());
   }
 
   @override

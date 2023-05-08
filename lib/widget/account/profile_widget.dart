@@ -7,6 +7,8 @@ import 'package:yodi/screen/address_list_screen.dart';
 
 import '../../bloc/user/user_bloc.dart';
 import '../../bloc/user_address/user_address_bloc.dart';
+import '../../screen/auth_screen.dart';
+import '../../utils/auth.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
@@ -338,22 +340,34 @@ class ProfileWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Icon(Icons.logout),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Text(
-                    'Log Out',
-                    style: GoogleFonts.poppins(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 51, 51, 51),
+              GestureDetector(
+                onTap: () {
+                  Auth().deleteToken();
+
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AuthScreen(),
                     ),
-                  ),
-                  Spacer(),
-                ],
+                  );
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.logout),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Text(
+                      'Log Out',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 51, 51, 51),
+                      ),
+                    ),
+                    Spacer(),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 20,

@@ -16,7 +16,7 @@ class LoginWidget extends StatelessWidget {
       height: double.maxFinite,
       width: double.infinity,
       alignment: AlignmentDirectional.center,
-      child: Column(
+      child: ListView(
         children: [
           const Image(
             image: AssetImage("images/Yodi_LOGO.png"),
@@ -33,7 +33,8 @@ class LoginWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 15, bottom: 20),
+            padding: const EdgeInsets.only(
+                left: 30.0, right: 30.0, top: 15, bottom: 20),
             child: TextField(
               controller: _passwordController,
               obscureText: true,
@@ -43,29 +44,48 @@ class LoginWidget extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 100),
             child: TextButton(
               onPressed: () {
-                Auth().login(context, _emailController.text, _passwordController.text);
+                Auth().login(
+                    context, _emailController.text, _passwordController.text);
               },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.amber,
                 padding: const EdgeInsets.symmetric(
-                  vertical: 14.0, horizontal: 80,
+                  vertical: 14.0,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
               child: const Text(
-                "Login",
+                "Sign In",
                 style: TextStyle(
                   color: Colors.white,
                   letterSpacing: 0.5,
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Auth().login(
+                  context, _emailController.text, _passwordController.text);
+            },
+            child: const Text(
+              "Sign Up",
+              style: TextStyle(
+                color: Colors.amber,
+                letterSpacing: 0.5,
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

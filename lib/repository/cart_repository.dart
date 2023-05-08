@@ -6,16 +6,15 @@ import 'package:http/http.dart' as http;
 import 'package:yodi/model/product_variant_model.dart';
 
 import '../config.dart';
+import '../model/cart_model.dart';
 import '../utils/auth.dart';
 
 class CartRepository {
   static final String _baseUrl =
       Platform.isAndroid ? Config.apiUrl : 'http://localhost:3000/api';
 
-  Future<bool> addProductToCart(String productId, List<String> productVariantsId) async {
+  Future<bool> addProductToCart(String token, String productId, List<String> productVariantsId) async {
     try {
-      String? token = await Auth().getToken();
-
       List<Map<String, dynamic>> listOfVariant = [];
       for (var variantId in productVariantsId) {
         listOfVariant.add({
@@ -41,4 +40,23 @@ class CartRepository {
       return false;
     }
   }
+
+  Future getCarts(String token) async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/user/cart'), headers: {
+        'Authorization': 'Bearer $token',
+      });
+
+      Iterable it = jsonDecode(response.body)["data"]['cart'];
+      List<Cart> cart = it.map((e) {
+        return Cart.fromJson(e);
+      }).toList();
+
+      return cart;
+  
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
 }

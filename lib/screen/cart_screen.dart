@@ -4,16 +4,16 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/app_bar_component.dart';
-import '../widget/cart/cart_widget.dart';
+import '../widget/cart/cart_list_widget.dart';
 
-class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+class CartListScreen extends StatefulWidget {
+  const CartListScreen({super.key});
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
+  State<CartListScreen> createState() => _CartListScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _CartListScreenState extends State<CartListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

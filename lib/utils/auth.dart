@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:yodi/components/function/error_notification_component.dart';
-import 'package:yodi/config.dart';
 import 'package:http/http.dart' as http;
-import 'package:yodi/screen/main_screen.dart';
+
+import '../components/function/error_notification_component.dart';
+import '../config.dart';
+import '../screen/main_screen.dart';
+import '../screen/auth_screen.dart';
 
 class Auth {
   final FlutterSecureStorage storage = const FlutterSecureStorage();

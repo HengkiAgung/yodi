@@ -1,21 +1,24 @@
+import 'cart_variant_model.dart';
 import 'product_model.dart';
-import 'product_variant_model.dart';
 
 class Cart {
+  late String id;
   late Product product;
-  late List<ProductVariant> cartVariant;
+  late List<CartVariant> cartVariant;
 
   Cart({
+    required this.id,
     required this.product,
     required this.cartVariant,
   });
 
   Cart.fromJson(Map<String, dynamic> json) {
     cartVariant = [];
+    id = json['id'];
     product = Product.fromJson(json['item']);
 
     for (var variantObject in json['cartVariant']) {
-      this.cartVariant.add(ProductVariant.fromJson(variantObject));
+      cartVariant.add(CartVariant.fromJson(variantObject));
     }
   }
 

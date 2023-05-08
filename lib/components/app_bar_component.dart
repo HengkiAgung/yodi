@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yodi/screen/cart_screen.dart';
+import 'package:yodi/utils/middleware.dart';
 
+import '../bloc/cart/cart_bloc.dart';
 import '../bloc/product/product_bloc.dart';
+import '../bloc/user/user_bloc.dart';
 import '../screen/account_screen.dart';
+import '../utils/auth.dart';
 
 class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
   const AppBarComponent({super.key});
@@ -80,13 +84,19 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
               ),
         const Spacer(),
         IconButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) =>
-                  const CartScreen(),
-              ),
-            );
+          onPressed: () async{
+            if (await Middleware().authenticated(context) == true) {
+              // ignore: use_build_context_synchronously
+              context.read<CartBloc>().add(GetCartList());
+
+              // ignore: use_build_context_synchronously
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                    const CartListScreen(),
+                ),
+              );
+            }
           },
           icon: const Icon(
             Icons.shopping_cart,
@@ -94,13 +104,19 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         IconButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) =>
-                  const AccountScreen(),
-              ),
-            );
+          onPressed: () async {
+            if (await Middleware().authenticated(context) == true) {
+              // ignore: use_build_context_synchronously
+              context.read<UserBloc>().add(GetUserData());
+
+              // ignore: use_build_context_synchronously
+              Navigator.of(context).push(  
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                    const AccountScreen(),
+                ),
+              );
+            }
           },
           icon: const Icon(
             Icons.account_circle,
