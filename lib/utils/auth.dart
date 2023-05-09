@@ -30,13 +30,43 @@ class Auth {
         persistToken(token);
 
         // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const MainScreen(),
-          ),
-        );
+        Navigator.pop(context);
+        
       } else {
+        final errorMessage = json.decode(response.body)['message'];
+
+        ErrorNotificationComponent().showModal(context, errorMessage);
+      }
+    } catch (error) {
+      print(error.toString());
+    }
+  
+  }
+
+  void register(BuildContext context, String username, String email, String password) async {
+    try {
+      final response = await http.post(
+        Uri.parse("${Config.apiUrl}/register"),
+        body: jsonEncode({
+          'username': username,
+          'email': email,
+          'password': password,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (jsonDecode(response.body)['data']?['token'] != null) {
+        final token = jsonDecode(response.body)['data']['token'];
+
+        persistToken(token);
+
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+        Navigator.pop(context);
+      } else {
+        print(json.decode(response.body));
         final errorMessage = json.decode(response.body)['message'];
 
         ErrorNotificationComponent().showModal(context, errorMessage);

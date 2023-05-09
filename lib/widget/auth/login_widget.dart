@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
+import '../../screen/auth_screen.dart';
 import '../../utils/auth.dart';
 
 class LoginWidget extends StatelessWidget {
@@ -48,7 +49,8 @@ class LoginWidget extends StatelessWidget {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 100),
+            padding:
+                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 100),
             child: TextButton(
               onPressed: () {
                 Auth().login(
@@ -76,8 +78,12 @@ class LoginWidget extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Auth().login(
-                  context, _emailController.text, _passwordController.text);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AuthScreen(indexWidget: 1),
+                ),
+              );
             },
             child: const Text(
               "Sign Up",
