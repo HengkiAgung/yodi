@@ -14,6 +14,7 @@ class CartRepository {
       Platform.isAndroid ? Config.apiUrl : 'http://localhost:3000/api';
 
   Future<bool> addProductToCart(String token, String productId, List<String> productVariantsId) async {
+    print("object");
     try {
       List<Map<String, dynamic>> listOfVariant = [];
       for (var variantId in productVariantsId) {
@@ -33,6 +34,8 @@ class CartRepository {
           'itemVariant': listOfVariant,
         }),
       );
+
+      print(response.body);
 
       return true;
     } catch (e) {

@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../bloc/bloc/seller_bloc.dart';
 import '../widget/seller/top_seller_list_widget.dart';
 import '../bloc/product/product_bloc.dart';
 import '../bloc/user/user_bloc.dart';
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<ProductBloc>().add(GetProductList());
+    context.read<SellerBloc>().add(GetSellerList());
   }
 
   @override

@@ -7,7 +7,7 @@ class Product {
   late String? description;
   late int? sold;
   late Map? count;
-  late Seller seller;
+  late Seller? seller;
   late List<ProductVariant> itemVariant;
   late List<String> itemImage;
 
@@ -30,7 +30,9 @@ class Product {
     description = json['description'];
     sold = json['sold'];
     count = json['_count'];
-    seller = Seller.fromJson(json['seller']);
+    if (json['seller'] != null) {
+      seller = Seller.fromJson(json['seller']);
+    }
 
     for (var imageObject in json['itemImage']) {
       this.itemImage.add(imageObject["image"]);

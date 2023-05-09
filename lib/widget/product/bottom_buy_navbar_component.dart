@@ -53,9 +53,10 @@ class _BottomBuyNavbarComponentState extends State<BottomBuyNavbarComponent> {
             children: [
               GestureDetector(
                 onTap: () async {
+                  print(variantSelected);
                   if (variantSelected != null) {
                     // ignore: unrelated_type_equality_checks
-                    if (Middleware().authenticated(context) == true) {
+                    if (await Middleware().authenticated(context) == true) {
                       await CartRepository().addProductToCart(await Auth().getToken() ?? "", product.id, variantSelected ?? []) == true ? Navigator.pop(context) : ErrorNotificationComponent().showModal(context, "Pesanan gagal ditambahkan");
                     }
                   } else {
@@ -81,7 +82,7 @@ class _BottomBuyNavbarComponentState extends State<BottomBuyNavbarComponent> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    VariantProductComponent().showModal(context, product);
+                    Navigator.pop(context);
                   },
                   child: Container(
                     alignment: Alignment.center,

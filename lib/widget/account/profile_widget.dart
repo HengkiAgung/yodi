@@ -27,18 +27,20 @@ class ProfileWidget extends StatelessWidget {
             } else if (state is UserLoadSuccess) {
               final user = state.user[0];
 
+              print(user.image);
+
               return Row(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: const FadeInImage(
-                      height: 80,
-                      width: 80,
-                      placeholder: AssetImage("images/loading.gif"),
-                      image: NetworkImage(
-                          "https://lzd-img-global.slatic.net/g/p/d1299ffb43ab960b33ad38ee0170b816.jpg_720x720q80.jpg_.webp"),
+                  user.image != "" ?
+                    CircleAvatar(
+                      radius: 30, // Image radius
+                      backgroundImage: NetworkImage(user.image ?? "")
+                    )
+                    :
+                    const CircleAvatar(
+                      radius: 30, // Image radius
+                      backgroundImage: AssetImage("images/profile_placeholder.jpg"),
                     ),
-                  ),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

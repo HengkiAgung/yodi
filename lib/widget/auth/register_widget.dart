@@ -76,7 +76,7 @@ class RegisterWidget extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                "Sign In",
+                "Sign Up",
                 style: TextStyle(
                   color: Colors.white,
                   letterSpacing: 0.5,

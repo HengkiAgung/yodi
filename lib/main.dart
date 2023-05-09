@@ -2,13 +2,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import 'bloc/bloc/seller_bloc.dart';
 import 'repository/cart_repository.dart';
 import 'bloc/cart/cart_bloc.dart';
 import 'bloc/product_variant/product_variant_bloc.dart';
 import 'bloc/product/product_bloc.dart';
 import 'bloc/user/user_bloc.dart';
 import 'bloc/user_address/user_address_bloc.dart';
-import 'screen/auth_screen.dart';
+import 'repository/seller_repository.dart';
 import 'screen/main_screen.dart';
 import '/repository/user_repository.dart';
 import 'repository/product_repository.dart';
@@ -38,6 +39,7 @@ void main() {
   final productRepository = ProductRepository();
   final userRepository = UserRepository();
   final cartRepository = CartRepository();
+  final sellerRepository = SellerRepository();
 
   runApp(MultiBlocProvider(
     providers: [
@@ -55,6 +57,9 @@ void main() {
       ),
       BlocProvider<CartBloc>(
         create: (context) => CartBloc(cartRepository: cartRepository),
+      ),
+      BlocProvider<SellerBloc>(
+        create: (context) => SellerBloc(sellerRepository: sellerRepository),
       ),
       
     ],

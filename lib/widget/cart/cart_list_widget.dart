@@ -62,7 +62,7 @@ class _CartWidgetState extends State<CartWidget> {
                             },
                           ),
                           Text(
-                            cart.product.seller.user.username,
+                            cart.product.seller?.user.username ?? "",
                             style: GoogleFonts.poppins(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,

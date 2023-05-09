@@ -77,11 +77,15 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                           const SizedBox(height: 15),
                           Row(
                             children: [
+                              product.seller?.user.image != "" ?
                               CircleAvatar(
                                 radius: 25, // Image radius
-                                backgroundImage: NetworkImage(product
-                                        .seller.user.image ??
-                                    'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'),
+                                backgroundImage: NetworkImage(product.seller?.user.image ?? "")
+                              )
+                              :
+                              const CircleAvatar(
+                                radius: 25, // Image radius
+                                backgroundImage: AssetImage("images/profile_placeholder.jpg"),
                               ),
                               Container(
                                 padding: const EdgeInsets.only(left: 14),
@@ -89,7 +93,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      product.seller.user.username,
+                                      product.seller?.user.username ?? "",
                                       style: GoogleFonts.poppins(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w600,
@@ -98,7 +102,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                       textAlign: TextAlign.left,
                                     ),
                                     Text(
-                                      product.seller.city,
+                                      product.seller?.city ?? "",
                                       style: GoogleFonts.poppins(
                                         fontSize: 15,
                                         color: Colors.grey,
