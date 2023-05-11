@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../bloc/user_address/user_address_bloc.dart';
 
@@ -18,14 +19,38 @@ class AddressListWidget extends StatelessWidget {
           final userAddress = state.address;
 
           return ListView.builder(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(13),
             itemCount: userAddress.length,
             itemBuilder: (BuildContext context, int index) {
               final address = userAddress[index];
 
               return Container(
-                height: 50,
-                child: Center(child: Text('Entry ${address.address}')),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey), 
+                  borderRadius: BorderRadius.circular(5), 
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(13),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        address.label,
+                        style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 51, 51, 51),
+                        ),
+                      ),
+                      SizedBox(height: 5,),
+                      Text('Kota: ${address.city}'),
+                      SizedBox(height: 5,),
+                      Text('Alamat Lengkap: ${address.address}'),
+                      SizedBox(height: 5,),
+                      // Text('Kode Pos: ${address.postalCode}'),
+                    ],
+                  ),
+                ),
               );
             }
           );

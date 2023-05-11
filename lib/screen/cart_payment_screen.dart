@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yodi/widget/cart/cart_payment_widget.dart';
 
-import '../components/app_bar_component.dart';
-import '../widget/cart/cart_list_widget.dart';
-
-class CartListScreen extends StatefulWidget {
-  const CartListScreen({super.key});
+class CartPaymentScreen extends StatefulWidget {
+  const CartPaymentScreen({super.key});
 
   @override
-  State<CartListScreen> createState() => _CartListScreenState();
+  State<CartPaymentScreen> createState() => _CartPaymentScreenState();
 }
 
-class _CartListScreenState extends State<CartListScreen> {
+class _CartPaymentScreenState extends State<CartPaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +20,7 @@ class _CartListScreenState extends State<CartListScreen> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
-            color: Color.fromARGB(255, 226, 226, 226),
+            color: const Color.fromARGB(255, 226, 226, 226),
             height: 1,
           ),
         ),
@@ -41,7 +39,7 @@ class _CartListScreenState extends State<CartListScreen> {
             padding: const EdgeInsets.only(left: 50),
             child: Center(
               child: Text(
-                "Keranjang",
+                "Payment",
                 style: GoogleFonts.poppins(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -50,10 +48,10 @@ class _CartListScreenState extends State<CartListScreen> {
               ),
             ),
           ),
-          Spacer()
+          const Spacer()
         ],
       ),
-      body: const CartWidget(),
+      body: const CartPaymentWidget(),
     );
   }
 }

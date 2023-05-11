@@ -26,4 +26,22 @@ class SellerRepository {
       print(e.toString());
     }
   }
+
+  Future getTopSellers() async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/seller/top'));
+      // print("!");
+      print(jsonDecode(response.body)["data"]['sellers']);
+      // print("!");
+      Iterable it = jsonDecode(response.body)["data"]['sellers'];
+      List<Seller> seller = it.map((e) {
+        return Seller.fromJson(e);
+      }).toList();
+
+      return seller;
+  
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

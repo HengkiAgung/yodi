@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onBottomNavBarTapped(int index) {
     setState(() {
-      _bottomNavIndex = index;
+      _bottomNavIndex = index;      
     });
   }
 

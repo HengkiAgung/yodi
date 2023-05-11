@@ -83,17 +83,17 @@ class ProductListWidget extends StatelessWidget {
                           // content of product card
                           Padding(
                             padding: const EdgeInsets.all(10),
-                            child: Wrap(
-                              direction: Axis.vertical,
-                              spacing: 5, // <-- Spacing between children
+                            child: Column(
                               children: <Widget>[
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     product.title,
                                     style: const TextStyle(fontSize: 14),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
+                                SizedBox(height: 10,),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(

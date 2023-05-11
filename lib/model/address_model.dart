@@ -4,6 +4,7 @@ class Address {
   late String city;
   late String address;
   late String note;
+  // late String postalCode;
 
   Address({
     required this.id,
@@ -11,6 +12,7 @@ class Address {
     required this.city,
     required this.address,
     required this.note,
+    // required this.postalCode,
   });
 
   Address.fromJson(Map<String, dynamic> json) {
@@ -19,5 +21,6 @@ class Address {
     city = json['city'];
     address = json['address'];
     note = json['note'];
+    // postalCode = json['postalCode'];
   }
 }

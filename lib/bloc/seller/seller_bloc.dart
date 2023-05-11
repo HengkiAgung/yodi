@@ -16,8 +16,17 @@ class SellerBloc extends Bloc<SellerEvent, SellerState> {
       try {
         final seller = await sellerRepository.getSellers();
 
-        print("seller dapat");
-        print(seller);
+        emit(SellerLoadSuccess(seller));
+      } catch (error) {
+        print(error);
+        emit(SellerLoadFailure(error: error.toString()));
+      }
+    });
+
+    on<GetTopSellerList>((event, emit) async {
+      emit(SellerLoading());
+      try {
+        final seller = await sellerRepository.getTopSellers();
 
         emit(SellerLoadSuccess(seller));
       } catch (error) {

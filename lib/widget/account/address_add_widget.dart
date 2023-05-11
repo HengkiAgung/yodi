@@ -17,6 +17,7 @@ class _AddressAddWidgetState extends State<AddressAddWidget> {
   final _cityController = TextEditingController();
   final _addressController = TextEditingController();
   final _noteController = TextEditingController();
+  final _postalController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +75,21 @@ class _AddressAddWidgetState extends State<AddressAddWidget> {
             child: Column(
               children: [
                 TextField(
+                  controller: _postalController,
+                  obscureText: false,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Kode Pos',
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 90,
+            child: Column(
+              children: [
+                TextField(
                   controller: _noteController,
                   obscureText: false,
                   decoration: const InputDecoration(
@@ -97,7 +113,7 @@ class _AddressAddWidgetState extends State<AddressAddWidget> {
         child: Padding(
           padding: const EdgeInsets.only(left: 13, right: 13, top: 10, bottom: 10),
           child: GestureDetector(
-            onTap: () => UserRepository().addUserAddress(context, _labelController.text, _cityController.text, _addressController.text, _noteController.text),
+            onTap: () => UserRepository().addUserAddress(context, _labelController.text, _cityController.text, _addressController.text, _postalController.text, _noteController.text),
             child: Container(
               padding: const EdgeInsets.only(
                 top: 3,

@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'bloc/bloc/seller_bloc.dart';
+import 'bloc/seller/seller_bloc.dart';
 import 'repository/cart_repository.dart';
 import 'bloc/cart/cart_bloc.dart';
 import 'bloc/product_variant/product_variant_bloc.dart';

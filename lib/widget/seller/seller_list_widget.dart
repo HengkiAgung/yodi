@@ -3,8 +3,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yodi/screen/seller_detail_screen.dart';
 
-import '../../bloc/bloc/seller_bloc.dart';
+import '../../bloc/seller/seller_bloc.dart';
 import '../../model/product_model.dart';
 import '../../screen/product_detail_screen.dart';
 
@@ -17,6 +18,11 @@ class SellerListWidget extends StatefulWidget {
 
 class _SellerListWidgetState extends State<SellerListWidget> {
 
+  void initState() {
+    super.initState();
+    context.read<SellerBloc>().add(GetSellerList());
+  }
+  
   List<Widget> productOfSeller(List<Product> products){
     List<Widget> listProductSeller = [];
     for (var product in products) {
@@ -35,11 +41,13 @@ class _SellerListWidgetState extends State<SellerListWidget> {
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: FadeInImage(
-                      width: double.infinity,
+                      width: 100,
+                      height: 100,
                       placeholder: AssetImage("images/loading.gif"),
                       image: NetworkImage(product.itemImage[0]),
                     ),
@@ -131,23 +139,33 @@ class _SellerListWidgetState extends State<SellerListWidget> {
                               ),
                             ),
                             Spacer(),
-                            Container(
-                              padding: const EdgeInsets.only(
-                                top: 8,
-                                bottom: 8,
-                                left: 7,
-                                right: 7,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Color.fromARGB(255, 0, 150, 5)),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Detail Seller',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 0, 150, 5),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        const SellerDetailScreen(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                  top: 8,
+                                  bottom: 8,
+                                  left: 7,
+                                  right: 7,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color.fromARGB(255, 0, 150, 5)),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  'Detail Seller',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 0, 150, 5),
+                                  ),
                                 ),
                               ),
                             ),
@@ -155,7 +173,7 @@ class _SellerListWidgetState extends State<SellerListWidget> {
                         ),
                         const SizedBox(height: 10),
                         Row(
-                          children: productOfSeller(seller.product!),
+                          children: productOfSeller(seller.product ?? []),
                         ),
                       ],
                     ),

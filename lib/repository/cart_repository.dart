@@ -25,7 +25,7 @@ class CartRepository {
       }
 
       final response = await http.post(
-        Uri.parse('http://192.168.1.2:3000/api/user/cart'),
+        Uri.parse('$_baseUrl/user/cart'),
         headers: {
           'Authorization': 'Bearer ${token}',
         },

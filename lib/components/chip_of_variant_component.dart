@@ -2,34 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../bloc/product_variant/product_variant_bloc.dart';
+import '../model/product_model.dart';
 import '../model/product_variant_model.dart';
 import '../widget/product/bottom_buy_navbar_component.dart';
 
 class ChipOfVariantComponent extends StatefulWidget {
-  final List<ProductVariant> itemVariant;
+  final Product product;
 
-  const ChipOfVariantComponent({required this.itemVariant, super.key});
+  const ChipOfVariantComponent({required this.product, super.key});
 
   @override
-  State<ChipOfVariantComponent> createState() => _ChipOfVariantComponentState(chipOfItemVariant: itemVariant);
+  State<ChipOfVariantComponent> createState() => _ChipOfVariantComponentState(product: product, chipOfItemVariant: product.itemVariant);
 }
 
 class _ChipOfVariantComponentState extends State<ChipOfVariantComponent> {
   List<String> variantSelected = [];
-  final List chipOfItemVariant;
+  final List<ProductVariant> chipOfItemVariant;
+  final Product product;
+  int price = 0;
 
-  _ChipOfVariantComponentState({required this.chipOfItemVariant});
+  _ChipOfVariantComponentState({required this.product, required this.chipOfItemVariant});
 
-  List<Widget> generateVariant(List productVariants) {
+  List<Widget> generateVariant(List<ProductVariant> productVariants) {
     List<Widget> widgets = [];
 
     for (var variant in productVariants) {
       widgets.add(
           InputChip(
             label: Text(
-              variant.label,
+              variant.label!,
               style: TextStyle(
                 color:
                     variantSelected.contains(variant.label) ? Colors.amber : Colors.black,
@@ -48,9 +52,11 @@ class _ChipOfVariantComponentState extends State<ChipOfVariantComponent> {
 
               setState(() {
                 if (selected) {
-                  variantSelected.add(variant.id);
+                  variantSelected.add(variant.id!);
+                  price += variant.price;
                 } else {
                   variantSelected.removeWhere( (item) => item == variant.id );
+                  price -= variant.price;
                 }
               });
             },
@@ -67,15 +73,68 @@ class _ChipOfVariantComponentState extends State<ChipOfVariantComponent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 14, right: 14, bottom: 20),
-          child: Wrap(
-            spacing: 8.0, // gap between adjacent chips
-            runSpacing: 4.0, // gap between lines
-            children: generateVariant(chipOfItemVariant),
+          padding: const EdgeInsets.only(right: 14, left: 14, top: 20, bottom: 20),
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                'Varian baju',
+                style: GoogleFonts.poppins(
+                  fontSize: 15,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
         ),
-        BottomBuyNavbarComponent(variantSelected: variantSelected),
+        Padding(
+          padding: const EdgeInsets.only(right: 14, left: 14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                product.title,
+                style: GoogleFonts.poppins(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                "Rp. ${price},00",
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 15),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 14, right: 14, bottom: 20),
+              child: Wrap(
+                spacing: 8.0, // gap between adjacent chips
+                runSpacing: 4.0, // gap between lines
+                children: generateVariant(chipOfItemVariant),
+              ),
+            ),
+            BottomBuyNavbarComponent(variantSelected: variantSelected),
+          ],
+        ),
       ],
     );
+                  
   }
 }

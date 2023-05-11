@@ -8,3 +8,5 @@ abstract class SellerEvent extends Equatable {
 }
 
 class GetSellerList extends SellerEvent {}
+
+class GetTopSellerList extends SellerEvent {}
