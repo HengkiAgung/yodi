@@ -3,7 +3,7 @@ class Address {
   late String label;
   late String city;
   late String address;
-  late String note;
+  late String? note;
   // late String postalCode;
 
   Address({

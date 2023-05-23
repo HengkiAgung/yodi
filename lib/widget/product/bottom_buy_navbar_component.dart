@@ -3,14 +3,12 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yodi/model/product_variant_model.dart';
-import 'package:yodi/screen/cart_shipping_screen.dart';
+import 'package:yodi/screen/product_shipping_screen.dart';
 import 'package:yodi/utils/middleware.dart';
 
 import '../../bloc/cart/cart_bloc.dart';
 import '../../bloc/product/product_bloc.dart';
 import '../../components/function/error_notification_component.dart';
-import '../../model/product_model.dart';
 import '../../components/function/variant_product_component.dart';
 import '../../repository/cart_repository.dart';
 import '../../screen/cart_screen.dart';
@@ -111,7 +109,7 @@ class _BottomBuyNavbarComponentState extends State<BottomBuyNavbarComponent> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                const CartShippingScreen(),
+                                ProductShippingScreen(product: product, itemNote: "", selectedVariantProduct: variantSelected ?? []),
                             ),
                           );
                         } else {

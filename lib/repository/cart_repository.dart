@@ -14,7 +14,6 @@ class CartRepository {
       Platform.isAndroid ? Config.apiUrl : 'http://localhost:3000/api';
 
   Future<bool> addProductToCart(String token, String productId, List<String> productVariantsId) async {
-    print("object");
     try {
       List<Map<String, dynamic>> listOfVariant = [];
       for (var variantId in productVariantsId) {
@@ -61,5 +60,34 @@ class CartRepository {
       print(e.toString());
     }
   }
+
+  // Future checkoutCart(String token, List<Cart> carts) async {
+  //   try {
+  //     // for (var variantId in productVariantsId) {
+  //     //   listOfVariant.add({
+  //     //     "id": variantId,
+  //     //     "amount": 1
+  //     //   });
+  //     // }
+
+  //     // final response = await http.post(
+  //     //   Uri.parse('$_baseUrl/user/cart'),
+  //     //   headers: {
+  //     //     'Authorization': 'Bearer ${token}',
+  //     //   },
+  //     //   body: jsonEncode({
+  //     //     'itemId': productId,
+  //     //     'itemVariant': listOfVariant,
+  //     //   }),
+  //     // );
+
+  //     // print(response.body);
+
+  //     return true;
+  //   } catch (e) {
+  //     print(e.toString());
+  //     return false;
+  //   }
+  // }
 
 }

@@ -7,49 +7,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../bloc/user_address/user_address_bloc.dart';
-import '../model/cart_model.dart';
-import '../widget/cart/cart_shipping_widget.dart';
+import '../model/product_model.dart';
+import '../widget/product/product_shipping_widget.dart';
 
-class CartShippingScreen extends StatefulWidget { 
-  final List<Cart> carts;
-  final List<String> cartId;
+
+class ProductShippingScreen extends StatefulWidget { 
+  final Product product;
+  final String itemNote;
   final List<String> selectedVariantProduct;
 
-  const CartShippingScreen({required this.carts, required this.cartId, required this.selectedVariantProduct, super.key});
+  const ProductShippingScreen({required this.product, required this.itemNote, required this.selectedVariantProduct, super.key});
 
   @override
-  State<CartShippingScreen> createState() => _CartShippingScreenState(carts: carts, cartId: cartId, selectedVariantProduct: selectedVariantProduct);
+  State<ProductShippingScreen> createState() => _ProductShippingScreenState(product: product, itemNote: itemNote, selectedVariantProduct: selectedVariantProduct);
 }
 
-class _CartShippingScreenState extends State<CartShippingScreen> {
-  final List<Cart> carts;
-  final List<String> cartId;
+class _ProductShippingScreenState extends State<ProductShippingScreen> {
+  final Product product;
+  final String itemNote;
   final List<String> selectedVariantProduct;
 
-  _CartShippingScreenState({required this.carts, required this.cartId, required this.selectedVariantProduct});
-  
-  getSelectedVariantObject(){
-    for (var cart in carts) {
-      if (cartId.contains(cart.id)) {
-        int index = 0;
-        for (var cartVariant in cart.cartVariant) {
-          if (!selectedVariantProduct.contains(cartVariant.id)) {
-            cart.cartVariant.removeAt(index);
-          }
-          index++;
-        }
-      } else {
-        carts.removeWhere((item) => item.id == cart.id);
-      }
-    }
-    
-    print(carts);
-  }
+  _ProductShippingScreenState({required this.product, required this.itemNote, required this.selectedVariantProduct});
+
 
   @override
   Widget build(BuildContext context) {
     context.read<UserAddressBloc>().add(GetAllAddressData());
-    getSelectedVariantObject();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -87,7 +71,7 @@ class _CartShippingScreenState extends State<CartShippingScreen> {
           const Spacer()
         ],
       ),
-      body: const CartShippingWidget(),
+      body: ProductShippingWidget(product: product, itemNote: itemNote, selectedVariantProduct: selectedVariantProduct),
     );
   }
 }

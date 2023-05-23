@@ -7,6 +7,8 @@ import 'package:skeletons/skeletons.dart';
 import 'package:yodi/model/cart_variant_model.dart';
 
 import '../../bloc/cart/cart_bloc.dart';
+import '../../model/cart_model.dart';
+import '../../screen/cart_shipping_screen.dart';
 
 class CartWidget extends StatefulWidget {
   const CartWidget({super.key});
@@ -18,6 +20,7 @@ class CartWidget extends StatefulWidget {
 class _CartWidgetState extends State<CartWidget> {
   List<String> selectedVariantProduct = [];
   List<String> cartId = [];
+  List<Cart> globalCarts = [];
   int totalPrice = 0;
 
   void selectProduct(int product, bool isAdding) {}
@@ -31,6 +34,7 @@ class _CartWidgetState extends State<CartWidget> {
             return const Text("loading");
           } else if (state is CartLoadSuccess) {
             final carts = state.carts;
+            globalCarts = carts;
 
             return ListView.builder(
               itemCount: carts.length,
@@ -309,25 +313,36 @@ class _CartWidgetState extends State<CartWidget> {
                 ],
               ),
             ),
-            Spacer(),
-            Container(
-              margin: const EdgeInsets.only(right: 20),
-              padding: const EdgeInsets.only(
-                top: 10,
-                bottom: 10,
-                left: 40,
-                right: 40,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                'Beli (${selectedVariantProduct.length})',
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+            const Spacer(),
+            GestureDetector(
+              onTap: () {
+
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                      CartShippingScreen(carts: globalCarts, cartId: cartId, selectedVariantProduct: selectedVariantProduct),
+                  ),
+                );
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 20),
+                padding: const EdgeInsets.only(
+                  top: 10,
+                  bottom: 10,
+                  left: 40,
+                  right: 40,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'Beli (${selectedVariantProduct.length})',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

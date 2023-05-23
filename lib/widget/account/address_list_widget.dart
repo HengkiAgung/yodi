@@ -25,6 +25,7 @@ class AddressListWidget extends StatelessWidget {
               final address = userAddress[index];
 
               return Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey), 
                   borderRadius: BorderRadius.circular(5), 
