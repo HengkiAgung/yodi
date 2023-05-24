@@ -48,7 +48,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
           ),
         ),
       ]),
-      bottomNavigationBar: BottomBuyNavbarComponent(),
+      bottomNavigationBar: BottomBuyNavbarComponent(variantSelected: [], isOpened: false,),
     );
   }
 }

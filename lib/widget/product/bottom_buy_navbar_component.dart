@@ -15,19 +15,21 @@ import '../../screen/cart_screen.dart';
 import '../../utils/auth.dart';
 
 class BottomBuyNavbarComponent extends StatefulWidget {
-  List<String>? variantSelected;
-  BottomBuyNavbarComponent({this.variantSelected, super.key});
+  List<String> variantSelected;
+  bool isOpened;
+  BottomBuyNavbarComponent({required this.variantSelected, required this.isOpened, super.key});
 
   @override
   // ignore: no_logic_in_create_state
   State<BottomBuyNavbarComponent> createState() =>
-      _BottomBuyNavbarComponentState(variantSelected: variantSelected);
+      _BottomBuyNavbarComponentState(variantSelected: variantSelected, isOpened: isOpened);
 }
 
 class _BottomBuyNavbarComponentState extends State<BottomBuyNavbarComponent> {
-  final List<String>? variantSelected;
+  List<String> variantSelected = [];
+  bool isOpened;
 
-  _BottomBuyNavbarComponentState({this.variantSelected});
+  _BottomBuyNavbarComponentState({required this.variantSelected, required this.isOpened});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class _BottomBuyNavbarComponentState extends State<BottomBuyNavbarComponent> {
             children: [
               GestureDetector(
                 onTap: () async {
-                  if (variantSelected != null) {
+                  if (variantSelected.isNotEmpty) {
                     // ignore: unrelated_type_equality_checks, use_build_context_synchronously
                     if (await Middleware().authenticated(context) == true) {
                       if (await CartRepository().addProductToCart( await Auth().getToken() ?? "", product.id, variantSelected ?? []) == true) {
@@ -70,12 +72,12 @@ class _BottomBuyNavbarComponentState extends State<BottomBuyNavbarComponent> {
                                 const CartListScreen(),
                             ),
                           );
-                      } else {
+                      } else if (!isOpened) {
                         // ignore: use_build_context_synchronously
                         ErrorNotificationComponent().showModal(context, "Pesanan gagal ditambahkan");
                       }
                     }
-                  } else {
+                  } else if(!isOpened) {
                     VariantProductComponent().showModal(context, product);
                   }
                 },
@@ -98,26 +100,21 @@ class _BottomBuyNavbarComponentState extends State<BottomBuyNavbarComponent> {
               Expanded(
                 child: InkWell(
                   onTap: () async {
-                    if (variantSelected != null) {
+                    if (variantSelected.isNotEmpty) {
                       // ignore: unrelated_type_equality_checks, use_build_context_synchronously
                       if (await Middleware().authenticated(context) == true)  {
-                        if (await CartRepository().addProductToCart( await Auth().getToken() ?? "", product.id, variantSelected ?? []) == true) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.pop(context);
+                        // ignore: use_build_context_synchronously
+                        Navigator.pop(context);
 
-                          // ignore: use_build_context_synchronously
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                ProductShippingScreen(product: product, itemNote: "", selectedVariantProduct: variantSelected ?? []),
-                            ),
-                          );
-                        } else {
-                          // ignore: use_build_context_synchronously
-                          ErrorNotificationComponent().showModal(context, "Pesanan gagal ditambahkan");
-                        }
+                        // ignore: use_build_context_synchronously
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                              ProductShippingScreen(product: product, itemNote: "", selectedVariantProduct: variantSelected ?? []),
+                          ),
+                        );
                       }
-                    } else {
+                    } else if(!isOpened) {
                       VariantProductComponent().showModal(context, product);
                     }
                   },

@@ -130,11 +130,11 @@ class _ChipOfVariantComponentState extends State<ChipOfVariantComponent> {
                 children: generateVariant(chipOfItemVariant),
               ),
             ),
-            BottomBuyNavbarComponent(variantSelected: variantSelected),
+            BottomBuyNavbarComponent(variantSelected: variantSelected, isOpened: true),
           ],
         ),
       ],
     );
-                  
+
   }
 }
