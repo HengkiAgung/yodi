@@ -21,13 +21,7 @@ class ProductVariantBloc extends Bloc<ProductVariantEvent, ProductVariantState> 
       emit(ProductVariantInitial());
       try {
         var variants = GetProductVariants().productVariants;
-
-        for (var element in variants) {
-          print("ini yang di bloc");
-          print(element);
-        }
         variants.add(event.productVariant);
-        
 
         emit(AddNewProductVariant(newProductVariant: variants));
       } catch (e) {

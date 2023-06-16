@@ -13,18 +13,23 @@ import 'home_screen.dart';
 
 class DetailProductScreen extends StatefulWidget {
   final String idProduct;
-  const DetailProductScreen({required this.idProduct, super.key});
+  final String idSeller;
+  final bool isNotSeller;
+
+  const DetailProductScreen({required this.idProduct, this.isNotSeller = true, this.idSeller = "", super.key});
 
   @override
   State<DetailProductScreen> createState() =>
-      _DetailProductScreenState(idProduct: idProduct);
+      _DetailProductScreenState(idProduct: idProduct, isNotSeller: isNotSeller);
 }
 
 class _DetailProductScreenState extends State<DetailProductScreen> {
   final String idProduct;
+  final bool isNotSeller;
+  final String idSeller;
   bool isVariantOpened = false;
 
-  _DetailProductScreenState({required this.idProduct});
+  _DetailProductScreenState({required this.idProduct, this.idSeller = "", required this.isNotSeller,});
 
   @override
   void initState() {
@@ -36,7 +41,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarComponent(),
+      appBar: AppBarComponent(isNotSeller: isNotSeller, idSeller: idSeller),
       body: Stack(children: [
         SingleChildScrollView(
           child: Column(

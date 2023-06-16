@@ -6,14 +6,17 @@ import '../widget/seller/seller_list_widget.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final int index;
+  const MainScreen({required this.index, super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainScreen> createState() => _MainScreenState(bottomNavIndex: index);
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _bottomNavIndex = 0;
+  int bottomNavIndex = 0;
+
+  _MainScreenState({required this.bottomNavIndex});
 
   final List<Widget> _listWidget = [
     const HomeScreen(),
@@ -31,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onBottomNavBarTapped(int index) {
     setState(() {
-      _bottomNavIndex = index;      
+      bottomNavIndex = index;      
     });
   }
 
@@ -39,10 +42,10 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarComponent(),
-      body: _listWidget[_bottomNavIndex],
+      body: _listWidget[bottomNavIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: _bottomNavIndex,
+        currentIndex: bottomNavIndex,
         items: _bottomNavBarItems,
         onTap: _onBottomNavBarTapped,
       ),

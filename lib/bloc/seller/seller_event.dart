@@ -10,3 +10,9 @@ abstract class SellerEvent extends Equatable {
 class GetSellerList extends SellerEvent {}
 
 class GetTopSellerList extends SellerEvent {}
+
+class GetSellerDetail extends SellerEvent {
+  final String idSeller;
+
+  const GetSellerDetail({required this.idSeller});
+}

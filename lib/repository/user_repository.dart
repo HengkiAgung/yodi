@@ -41,7 +41,7 @@ class UserRepository {
 
       if (response.statusCode == 200) {        
         Iterable it = jsonDecode(response.body)["data"]['address'];
-        print(token);
+
         List<Address> address = it.map((e) {
           return Address.fromJson(e);
         }).toList();
@@ -55,7 +55,6 @@ class UserRepository {
   }
 
   Future<void> addUserAddress(BuildContext context, String label, String city, String address, String postalCode, String? note) async {
-    print("asdfad");
     try {
       String? token = await Auth().getToken();
 

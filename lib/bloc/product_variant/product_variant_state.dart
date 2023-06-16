@@ -39,9 +39,7 @@ class GetProductVariants extends ProductVariantState {
   List<ProductVariant> productVariant = [];
 
   GetProductVariants(){
-    print("ini dari constructor get variant");
     productVariant = super.productVariants;
-    print(productVariant);
   }
 }
 
@@ -49,8 +47,6 @@ class AddNewProductVariant extends ProductVariantState {
   final List<ProductVariant> newProductVariant;
 
   AddNewProductVariant({required this.newProductVariant}) {
-    print(newProductVariant);
     super.productVariants = newProductVariant;
-    print(productVariants.length);
   }
 }

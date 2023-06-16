@@ -8,12 +8,15 @@ import 'package:yodi/utils/middleware.dart';
 
 import '../bloc/cart/cart_bloc.dart';
 import '../bloc/product/product_bloc.dart';
+import '../bloc/seller/seller_bloc.dart';
 import '../bloc/user/user_bloc.dart';
 import '../screen/account_screen.dart';
 import '../utils/auth.dart';
 
 class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarComponent({super.key});
+  final bool isNotSeller;
+  final String idSeller;
+  const AppBarComponent({this.isNotSeller = true, this.idSeller = "", super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(57);
@@ -37,8 +40,13 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
       leading: canPop(context)
           ? IconButton(
               onPressed: () {
-                context.read<ProductBloc>().add(GetProductList());
-
+                // if(isNotSeller) {
+                  context.read<ProductBloc>().add(GetProductList());
+                  context.read<SellerBloc>().add(GetSellerList());
+                // } else {
+                //   context.read<ProductBloc>().add(GetProductBySeller(idSeller: idSeller));
+                // }
+                
                 Navigator.pop(context);
               },
               icon: const Icon(

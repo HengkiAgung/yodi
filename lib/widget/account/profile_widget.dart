@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yodi/screen/address_list_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../bloc/user/user_bloc.dart';
 import '../../bloc/user_address/user_address_bloc.dart';
@@ -12,6 +13,13 @@ import '../../utils/auth.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
+  Future<void> _launchUrl() async {
+    Uri _url = Uri.parse('https://yodi.vercel.app/'); 
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +34,7 @@ class ProfileWidget extends StatelessWidget {
               return const Text("Loading...");
             } else if (state is UserLoadSuccess) {
               final user = state.user[0];
-
-              print(user.image);
-
+              
               return Row(
                 children: [
                   user.image != "" ?
@@ -301,35 +307,38 @@ class ProfileWidget extends StatelessWidget {
         ),
 
         // kujungi web
-        Container(
-          color: Colors.white,
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.web_asset),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Text(
-                    'Kunjungi website',
-                    style: GoogleFonts.poppins(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 51, 51, 51),
+        GestureDetector(
+          onTap: _launchUrl,
+          child: Container(
+            color: Colors.white,
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.web_asset),
+                    const SizedBox(
+                      width: 12,
                     ),
-                  ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios_rounded),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ]
-          )
+                    Text(
+                      'Kunjungi website',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 51, 51, 51),
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios_rounded),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ]
+            )
+          ),
         ),
         const SizedBox(
           height: 10,

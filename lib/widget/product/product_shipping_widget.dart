@@ -3,10 +3,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yodi/model/address_model.dart';
 import 'package:yodi/repository/shipper_repository.dart';
 
 import '../../bloc/user_address/user_address_bloc.dart';
 import '../../model/product_model.dart';
+import '../../screen/payment_screen.dart';
 
 class ProductShippingWidget extends StatefulWidget {
   final Product product;
@@ -163,10 +165,15 @@ class _ProductShippingWidgetState extends State<ProductShippingWidget> {
       }
     }
 
+    Address address = new Address(id: "id", label: "label", city: "city", address: "address", note: "note");
+
     return Scaffold(
       body: ListView(
         children: [
-          Text("Alamat Pengiriman"),
+          Padding(
+            padding: const EdgeInsets.only(left: 18.0, top: 8),
+            child: Text("Alamat Pengiriman"),
+          ),
           BlocBuilder<UserAddressBloc, UserAddressState>(
               builder: (context, state) {
             if (state is UserAddressLoading) {
@@ -175,13 +182,14 @@ class _ProductShippingWidgetState extends State<ProductShippingWidget> {
               final userAddress = state.address;
 
               return Container(
+                margin: EdgeInsets.symmetric(horizontal: 8),
                 height: 150,
                 child: ListView.builder(
                     padding: const EdgeInsets.all(13),
                     // FIXME address masi terbatas 1 saja, belum bisa dipilih semau user
                     itemCount: 1,
                     itemBuilder: (BuildContext context, int index) {
-                      final address = userAddress[index];
+                      address = userAddress[index];
 
                       return Container(
                         margin: EdgeInsets.symmetric(vertical: 10),
@@ -227,11 +235,12 @@ class _ProductShippingWidgetState extends State<ProductShippingWidget> {
 
 
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(18.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("Barang Yang DIbeli"),
+                SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: Column(
@@ -240,7 +249,7 @@ class _ProductShippingWidgetState extends State<ProductShippingWidget> {
                       Text(
                         product.seller?.user.username ?? "",
                         style: GoogleFonts.poppins(
-                          fontSize: 10,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -441,12 +450,12 @@ class _ProductShippingWidgetState extends State<ProductShippingWidget> {
             const Spacer(),
             GestureDetector(
               onTap: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (BuildContext context) =>
-                //       // CartShippingScreen(carts: globalCarts, cartId: cartId, selectedVariantProduct: selectedVariantProduct),
-                //   ),
-                // );
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                      PaymentScreen(price: totalPrice, product: product, itemNote: itemNote, selectedVariantProduct: selectedVariantProduct, chosenShipper: chosenShipper, address: address),
+                  ),
+                );
               },
               child: Container(
                 margin: const EdgeInsets.only(right: 20),

@@ -66,12 +66,12 @@ class Auth {
         Navigator.pop(context);
         Navigator.pop(context);
       } else {
-        print(json.decode(response.body));
         final errorMessage = json.decode(response.body)['message'];
 
         ErrorNotificationComponent().showModal(context, errorMessage);
       }
     } catch (error) {
+      print("token");
       print(error.toString());
     }
   

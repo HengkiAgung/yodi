@@ -14,3 +14,9 @@ class GetProductDetail extends ProductEvent {
 
   const GetProductDetail({required this.idProduct});
 }
+
+class GetProductBySeller extends ProductEvent {
+  final String idSeller;
+
+  const GetProductBySeller({required this.idSeller});
+}

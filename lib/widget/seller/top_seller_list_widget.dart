@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/seller/seller_bloc.dart';
 import '../../model/seller_model.dart';
+import '../../screen/seller_detail_screen.dart';
 
 class TopSellerListWidget extends StatefulWidget {
   const TopSellerListWidget({super.key});
@@ -18,19 +19,17 @@ class _TopSellerListWidgetState extends State<TopSellerListWidget> {
     List<Widget> widgetSeller = [];
 
     for (var seller in sellers) {
-      print(seller.user.image);
       widgetSeller.add(Padding(
         padding: const EdgeInsets.all(8.0),
 
         // event listener when clicked
         child: GestureDetector(
           onTap: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) =>
-            //         DetailProductScreen(idProduct: product.id),
-            //   ),
-            // );
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => SellerDetailScreen(idSeller: seller.id!),
+              ),
+            );
           },
           child: Container(
             // height: 100,
@@ -85,7 +84,7 @@ class _TopSellerListWidgetState extends State<TopSellerListWidget> {
                         child: Text(
                           seller.city,
                           style: const TextStyle(
-                            fontSize: 16,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

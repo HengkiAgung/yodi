@@ -12,15 +12,15 @@ class ProductRepository {
   Future getProducts() async {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/item?page=1&itemCount=12'));
-      // print("!");
-      print(jsonDecode(response.body)["data"]['items']);
-      // print("!");
-      Iterable it = jsonDecode(response.body)["data"]['items'];
-      List<Product> product = it.map((e) {
-        return Product.fromJson(e);
-      }).toList();
 
-      return product;
+      if (response.statusCode == 200) {
+        Iterable it = jsonDecode(response.body)["data"]['items'];
+        List<Product> product = it.map((e) {
+          return Product.fromJson(e);
+        }).toList();
+
+        return product;
+      }
   
     } catch (e) {
       print(e.toString());
@@ -32,8 +32,27 @@ class ProductRepository {
       final response = await http.get(Uri.parse('$_baseUrl/item/$idProduct'));
 
       if (response.statusCode == 200) {
-        print(jsonDecode(response.body)["data"]['item']);
         List<Product> product = [Product.fromJson(jsonDecode(response.body)["data"]['item'])];
+
+        return product;
+      }
+
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future getProductBySeller(String idSeller) async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/seller/$idSeller/item'));
+
+        print(jsonDecode(response.body)["data"]['item']);
+      if (response.statusCode == 200) {
+        Iterable it = jsonDecode(response.body)["data"]['item'];
+
+        List<Product> product = it.map((e) {
+          return Product.fromJson(e);
+        }).toList();
 
         return product;
       }

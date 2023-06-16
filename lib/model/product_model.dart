@@ -44,17 +44,4 @@ class Product {
       }
     }
   }
-
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = <String, dynamic>{};
-  //   data['id'] = id;
-  //   data['title'] = title;
-  //   data['seller'] = seller;
-  //   data['description'] = description;
-  //   data['itemImage'] = itemImage;
-  //   data['sold'] = sold;
-  //   data['itemVariant'] = itemVariant;
-  //   data['count'] = count;
-  //   return data;
-  // }
 }

@@ -34,5 +34,16 @@ class SellerBloc extends Bloc<SellerEvent, SellerState> {
         emit(SellerLoadFailure(error: error.toString()));
       }
     });
+
+    on<GetSellerDetail>((event, emit) async {
+      emit(SellerLoading());
+      try {
+        final seller = await sellerRepository.getSellerDetail(event.idSeller);
+
+        emit(SellerLoadSuccess(seller));
+      } catch (error) {
+        emit(SellerLoadFailure(error: error.toString()));
+      }
+    });
   }
 }

@@ -9,7 +9,9 @@ import '../../components/skeleton_product_list_component.dart';
 import '../../screen/product_detail_screen.dart';
 
 class ProductListWidget extends StatelessWidget {
-  const ProductListWidget({super.key});
+  bool isNotSeller;
+  final String idSeller;
+  ProductListWidget({this.isNotSeller = true, this.idSeller = "", super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +42,12 @@ class ProductListWidget extends StatelessWidget {
                   // event listener when clicked
                   child: GestureDetector(
                     onTap: () {
+                      context.read<ProductBloc>().add(GetProductDetail(idProduct: product.id));
+
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              DetailProductScreen(idProduct: product.id),
+                              DetailProductScreen(idProduct: product.id, isNotSeller: isNotSeller, idSeller: idSeller),
                         ),
                       );
                     },

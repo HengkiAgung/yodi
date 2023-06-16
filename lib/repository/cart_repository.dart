@@ -34,8 +34,6 @@ class CartRepository {
         }),
       );
 
-      print(response.body);
-
       return true;
     } catch (e) {
       print(e.toString());

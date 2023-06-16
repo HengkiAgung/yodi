@@ -12,9 +12,7 @@ class SellerRepository {
   Future getSellers() async {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/seller/item?sellerPage=1&sellerItemCount=10&itemItemCount=3'));
-      // print("!");
-      print(jsonDecode(response.body)["data"]['sellers']);
-      // print("!");
+
       Iterable it = jsonDecode(response.body)["data"]['sellers'];
       List<Seller> seller = it.map((e) {
         return Seller.fromJson(e);
@@ -30,9 +28,7 @@ class SellerRepository {
   Future getTopSellers() async {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/seller/top'));
-      // print("!");
-      print(jsonDecode(response.body)["data"]['sellers']);
-      // print("!");
+
       Iterable it = jsonDecode(response.body)["data"]['sellers'];
       List<Seller> seller = it.map((e) {
         return Seller.fromJson(e);
@@ -40,6 +36,21 @@ class SellerRepository {
 
       return seller;
   
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future getSellerDetail(String id) async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/seller/$id'));
+
+      if (response.statusCode == 200) {
+        List<Seller> seller = [Seller.fromJson(jsonDecode(response.body)["data"]['seller'])];
+
+        return seller;
+      }
+
     } catch (e) {
       print(e.toString());
     }

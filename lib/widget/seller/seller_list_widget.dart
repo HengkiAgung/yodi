@@ -143,8 +143,7 @@ class _SellerListWidgetState extends State<SellerListWidget> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        const SellerDetailScreen(),
+                                    builder: (BuildContext context) => SellerDetailScreen(idSeller: seller.id!),
                                   ),
                                 );
                               },
